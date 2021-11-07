@@ -8,9 +8,15 @@
         xmlns:vm="clr-namespace:WpfTest.ViewModels"
         xmlns:cmd="clr-namespace:WpfTest.Infrastructure.Commands"
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
-        Title="{Binding Title}" Height="450" Width="800">
+        Title="{Binding Title}" Height="450" Width="1000">
     <Window.Resources>
         <cmd:CloseApplicationCommand x:Key="CloseApplicationCommand"/>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Margin" Value="1" />
+        </Style>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="1" />
+        </Style>
     </Window.Resources>
     <!--<Window.DataContext>
         <vm:MainWindowViewModel />
@@ -23,9 +29,7 @@
             <MenuItem Header="Файл">
                 <MenuItem Header="Выход" Command="{StaticResource CloseApplicationCommand}"/>
             </MenuItem>
-            <MenuItem Header="Помощь">
-                <MenuItem Header="О программе"></MenuItem>
-            </MenuItem>
+            <MenuItem Header="Загрузить файл" Command="{Binding OpenFileCommand}"/>
             <MenuItem Header="Сохранить в БД" Command="{Binding SaveFromDataGridCommand}"/>
         </Menu>
         <StatusBar DockPanel.Dock="Bottom">
@@ -40,8 +44,9 @@
             <TabItem Header="Вкладка 1">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="1*" />
+                        <RowDefinition MaxHeight="22" MinHeight="22" />
+                        <RowDefinition MaxHeight="22" MinHeight="22" />
+                        <RowDefinition MaxHeight="22" MinHeight="22" />
                         <RowDefinition Height="5*" />
                         <RowDefinition Height="5*" />
                     </Grid.RowDefinitions>
@@ -56,28 +61,43 @@
                     <TextBlock Grid.Column="1" Grid.Row="0" FontSize="16" Text="1б" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <TextBlock Grid.Column="2" Grid.Row="0" FontSize="16" Text="1в" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <TextBlock Grid.Column="3" Grid.Row="0" FontSize="16" Text="1г" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <TextBox Grid.Column="0" Grid.Row="1" Text=""/>
-                    <TextBox Grid.Column="1" Grid.Row="1" Text=""/>
-                    <TextBox Grid.Column="2" Grid.Row="1" Text=""/>
-                    <TextBox Grid.Column="3" Grid.Row="1" Text=""/>
-                    <Button Grid.Column="4" Grid.Row="0">Сбросить</Button>
-                    <Button Grid.Column="4" Grid.Row="1">Поиск</Button>
-                    <ScrollViewer Grid.Column="0" Grid.Row="2">
+                    <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding X1a}"/>
+                    <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding X1b}"/>
+                    <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding X1c}"/>
+                    <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding X1d}"/>
+                    <Button Grid.Column="4" Grid.Row="0" Command="{Binding ResetSearchCommand}">Сбросить</Button>
+                    <Button Grid.Column="4" Grid.Row="1" Command="{Binding SearchCommand}">Поиск</Button>
+                    <TextBox Grid.Column="0" Grid.Row="2" Text="{Binding Id1}"/>
+                    <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Id2}"/>
+                    <Button Grid.Column="2" Grid.Row="2" Command="{Binding ComparasionCommand}">Сравнить по Id</Button>
+                    <TextBox Grid.Column="3" Grid.Row="2" Text=""/>
+                    <Button Grid.Column="4" Grid.Row="2" Command="">Удалить по Id</Button>
+                    <DataGrid x:Name="dataGrid" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="5" Grid.RowSpan="2" 
+                              AutoGenerateColumns="True" 
+                              AutoGeneratingColumn="dataGrid_AutoGeneratingColumn" 
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="False"
+                              ItemsSource="{Binding DataSources}"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Вкладка 2">
+                <Grid>
+                    <!--<DataGrid x:Name="dataGrid" 
+                              AutoGenerateColumns="True" 
+                              AutoGeneratingColumn="dataGrid_AutoGeneratingColumn" 
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="False"
+                              ItemsSource="{Binding DataSources}"/>-->
+                    <!--<ScrollViewer Grid.Column="0" Grid.Row="2">
                         <TextBlock Margin="3,3,3,3" 
                                    Text="{Binding Text}"/>
                     </ScrollViewer>
-                    <Button Grid.Column="0" Grid.Row="3" Command="{Binding OpenFileCommand}">Жмяк</Button>
                     <Ellipse Grid.Column="1" Grid.Row="2"
                              Fill="Red" Stroke="Blue"
                              StrokeThickness="3"/>
                     <GridSplitter Grid.Column="0" Grid.Row="2" Grid.RowSpan="2"
                                   HorizontalAlignment="Right"
-                                  Width="4"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Вкладка 2">
-                <Grid>
-                    <DataGrid x:Name="dataGrid" AutoGenerateColumns="True" AutoGeneratingColumn="dataGrid_AutoGeneratingColumn" CanUserAddRows="False"  ItemsSource="{Binding DataSources}"/>
+                                  Width="4"/> -->
                 </Grid>
             </TabItem>
         </TabControl>

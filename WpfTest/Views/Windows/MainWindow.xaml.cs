@@ -13,15 +13,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfTest.Interfaces;
+using WpfTest.Models;
 
 namespace WpfTest
 {
     public partial class MainWindow : Window
     {
+        //private readonly IRepository<Models.Table> _table;
         public MainWindow()
         {
             InitializeComponent();
-
+            //_table = table;
             //btn_openFile.Click += Btn_openFile_Click;
         }
 
@@ -30,7 +32,8 @@ namespace WpfTest
             string headername = e.Column.Header.ToString();
             if (headername == "Id")
             {
-                e.Column.Visibility = Visibility.Hidden;
+                e.Column.IsReadOnly = true;
+                //e.Column.Visibility = Visibility.Hidden;
             }
         }
         /*private void Btn_openFile_Click(object sender, RoutedEventArgs e)

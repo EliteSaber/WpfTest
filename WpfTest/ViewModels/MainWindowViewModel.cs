@@ -63,16 +63,125 @@ namespace WpfTest.ViewModels
             get => _x1d;
             set => Set(ref _x1d, value);
         }
+        private string _id1;
+        public string Id1
+        {
+            get => _id1;
+            set => Set(ref _id1, value);
+        }
+        private string _id2;
+        public string Id2
+        {
+            get => _id2;
+            set => Set(ref _id2, value);
+        }
+        public ICommand ComparasionCommand { get; }
+        private bool CanComparasionCommandExecuted(object p) => true;
+        private void OnComparasionCommandExecuted(object p)
+        {
+            int id1, id2;
+            if(int.TryParse(Id1, out id1) && int.TryParse(Id2, out id2))
+            {
+                var first = GetById(id1);
+                var second = GetById(id2);
+                var result = Comparasion(first, second);
+                DataSources = new List<Table>() { first, second, result };
+            }
+        }
+        private Table GetById(int id) => _table.Get(id);
+        private Table Comparasion(Table first, Table second)
+        {
+            Table result = new Table()
+            {
+                x2 = ComparasingStringsAsDouble(first.x2, second.x2),
+                x3 = ComparasingStringsAsDouble(first.x3, second.x3),
+                x4 = ComparasingStringsAsDouble(first.x4, second.x4),
+                x5 = ComparasingStringsAsDouble(first.x5, second.x5),
+                x6 = ComparasingStringsAsDouble(first.x6, second.x6),
+                x7 = ComparasingStringsAsDouble(first.x7, second.x7),
+                x8 = ComparasingStringsAsDouble(first.x8, second.x8),
+                x9 = ComparasingStringsAsDouble(first.x9, second.x9),
+                x10 = ComparasingStringsAsDouble(first.x10, second.x10),
+                x11 = ComparasingStringsAsDouble(first.x11, second.x11),
+                x12 = ComparasingStringsAsDouble(first.x12, second.x12),
+                x13 = ComparasingStringsAsDouble(first.x13, second.x13),
+                x14 = ComparasingStringsAsDouble(first.x14, second.x14),
+            };
+            return result;
+        }
+        private string ComparasingStringsAsDouble(string s1, string s2)
+        {
+            double x = double.Parse(s1) - double.Parse(s2);
+            return x.ToString();
+        }
+        public ICommand ResetSearchCommand { get; }
+        private bool CanResetSearchCommandExecuted(object p) => true;
+        private void OnResetSearchCommandExecuted(object p)
+        {
+            X1a = "";
+            X1b = "";
+            X1c = "";
+            X1d = "";
+            Id1 = "";
+            Id2 = "";
+            ReloadDataSources();
+        }
         public ICommand SearchCommand { get; }
         private bool CanSearchCommandExecuted(object p) => true;
         private void OnSearchCommandExecuted(object p)
         {
+            //все возможные комбинации поиска через четыре поля, методом перебора
+            var data = new List<Table>();
             if(IsNotNull(X1a) && IsNotNull(X1b) && IsNotNull(X1c) && IsNotNull(X1d))
-            {
-                var data = _table.Items.Where(x => x.x1a.Equals(X1a) && x.x1b.Equals(X1b) && x.x1c.Equals(X1c) && x.x1d.Equals(X1d));
-                if (data != null)
-                    DataSources = data;
-            }
+                data = _table.Items.Where(x => x.x1a.Equals(X1a) && x.x1b.Equals(X1b) && x.x1c.Equals(X1c) && x.x1d.Equals(X1d)).ToList();
+
+            if (IsNotNull(X1a) && IsNotNull(X1b) && IsNotNull(X1c) && !IsNotNull(X1d))
+                data = _table.Items.Where(x => x.x1a.Equals(X1a) && x.x1b.Equals(X1b) && x.x1c.Equals(X1c)).ToList();
+
+            if (IsNotNull(X1a) && IsNotNull(X1b) && !IsNotNull(X1c) && IsNotNull(X1d))
+                data = _table.Items.Where(x => x.x1a.Equals(X1a) && x.x1b.Equals(X1b) && x.x1d.Equals(X1d)).ToList();
+
+            if (IsNotNull(X1a) && !IsNotNull(X1b) && IsNotNull(X1c) && IsNotNull(X1d))
+                data = _table.Items.Where(x => x.x1a.Equals(X1a) && x.x1c.Equals(X1c) && x.x1d.Equals(X1d)).ToList();
+
+            if (!IsNotNull(X1a) && IsNotNull(X1b) && IsNotNull(X1c) && IsNotNull(X1d))
+                data = _table.Items.Where(x => x.x1b.Equals(X1b) && x.x1c.Equals(X1c) && x.x1d.Equals(X1d)).ToList();
+
+            if (IsNotNull(X1a) && IsNotNull(X1b) && !IsNotNull(X1c) && !IsNotNull(X1d))
+                data = _table.Items.Where(x => x.x1a.Equals(X1a) && x.x1b.Equals(X1b)).ToList();
+
+            if (IsNotNull(X1a) && !IsNotNull(X1b) && IsNotNull(X1c) && !IsNotNull(X1d))
+                data = _table.Items.Where(x => x.x1a.Equals(X1a) && x.x1c.Equals(X1c)).ToList();
+
+            if (!IsNotNull(X1a) && IsNotNull(X1b) && IsNotNull(X1c) && !IsNotNull(X1d))
+                data = _table.Items.Where(x => x.x1b.Equals(X1b) && x.x1c.Equals(X1c)).ToList();
+
+            if (IsNotNull(X1a) && !IsNotNull(X1b) && !IsNotNull(X1c) && IsNotNull(X1d))
+                data = _table.Items.Where(x => x.x1a.Equals(X1a) && x.x1d.Equals(X1d)).ToList();
+
+            if (!IsNotNull(X1a) && IsNotNull(X1b) && !IsNotNull(X1c) && IsNotNull(X1d))
+                data = _table.Items.Where(x => x.x1b.Equals(X1b) && x.x1d.Equals(X1d)).ToList();
+
+            if (!IsNotNull(X1a) && !IsNotNull(X1b) && IsNotNull(X1c) && IsNotNull(X1d))
+                data = _table.Items.Where(x => x.x1c.Equals(X1c) && x.x1d.Equals(X1d)).ToList();
+
+            if (IsNotNull(X1a) && !IsNotNull(X1b) && !IsNotNull(X1c) && !IsNotNull(X1d))
+                data = _table.Items.Where(x => x.x1a.Equals(X1a)).ToList();
+
+            if (!IsNotNull(X1a) && IsNotNull(X1b) && !IsNotNull(X1c) && !IsNotNull(X1d))
+                data = _table.Items.Where(x => x.x1b.Equals(X1b)).ToList();
+
+            if (!IsNotNull(X1a) && !IsNotNull(X1b) && IsNotNull(X1c) && !IsNotNull(X1d))
+                data = _table.Items.Where(x => x.x1c.Equals(X1c)).ToList();
+
+            if (!IsNotNull(X1a) && !IsNotNull(X1b) && !IsNotNull(X1c) && IsNotNull(X1d))
+                data = _table.Items.Where(x => x.x1d.Equals(X1d)).ToList();
+
+            if (!IsNotNull(X1a) && !IsNotNull(X1b) && !IsNotNull(X1c) && !IsNotNull(X1d))
+                return;
+
+            if (data.Count > 0)
+                DataSources = data;
         }
         private bool IsNotNull(string s) => !string.IsNullOrWhiteSpace(s);
         public ICommand OpenFileCommand { get; }
@@ -163,9 +272,9 @@ namespace WpfTest.ViewModels
                 }
                 ReloadDataSources();
                 var numsRecords = _table.Items.Count();
-                Text = $"Записей в таблице {numsRecords}\r\n"
-                    + $"Обновлено {countUpdate} записей\r\n"
-                    + $"Добавлено {countInsert} записей";
+                Status = $"Записей в таблице {numsRecords} | "
+                    + $"Обновлено {countUpdate} | "
+                    + $"Добавлено {countInsert}";
             }
         }
         private bool CanOpenFileCommandExecute(object p) => true;
@@ -186,7 +295,7 @@ namespace WpfTest.ViewModels
         {
             //ChangeData(DataSources);
             var count = _table.SaveChanges();
-            Text = $"Изменено {count} записей";
+            Status = $"Изменено {count} записей";
             //DataSources = _table.Items.ToList();
         }
         /*public ICommand OutputDataCommand { get; }
@@ -209,6 +318,9 @@ namespace WpfTest.ViewModels
             //CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
             OpenFileCommand = new LambdaCommand(OnOpenFileCommandExecuted, CanOpenFileCommandExecute);
             SaveFromDataGridCommand = new LambdaCommand(OnSaveFromDataGridCommandExecuted, CanSaveFromDataGridCommandExecuted);
+            ResetSearchCommand = new LambdaCommand(OnResetSearchCommandExecuted, CanResetSearchCommandExecuted);
+            SearchCommand = new LambdaCommand(OnSearchCommandExecuted, CanSearchCommandExecuted);
+            ComparasionCommand = new LambdaCommand(OnComparasionCommandExecuted, CanComparasionCommandExecuted);
         }
     }
 }
