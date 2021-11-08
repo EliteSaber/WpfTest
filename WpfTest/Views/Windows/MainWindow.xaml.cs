@@ -27,15 +27,15 @@ namespace WpfTest
             //btn_openFile.Click += Btn_openFile_Click;
         }
 
-        private void dataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
-        {
-            string headername = e.Column.Header.ToString();
-            if (headername == "Id")
-            {
-                e.Column.IsReadOnly = true;
-                //e.Column.Visibility = Visibility.Hidden;
-            }
-        }
+        //private void dataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        //{
+        //    string headername = e.Column.Header.ToString();
+        //    if (headername == "Id")
+        //    {
+        //        e.Column.IsReadOnly = true;
+        //        //e.Column.Visibility = Visibility.Hidden;
+        //    }
+        //}
         /*private void Btn_openFile_Click(object sender, RoutedEventArgs e)
 {
    IDialogService dialog = new DefaultDialogService();

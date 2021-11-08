@@ -53,11 +53,17 @@ namespace WpfTest.Data
             return await Items.SingleOrDefaultAsync(item => item.Id == id, cancel).ConfigureAwait(false);
         }
 
-        public void Remove(int id)
+        public bool Remove(int id)
         {
-            _db.Remove(new T { Id = id });
-            if (AutoSaveChanges)
-                _db.SaveChanges();
+            var record = Get(id);
+            var isNotNull = record != null;
+            if (isNotNull)
+            {
+                _db.Remove(record);
+                if (AutoSaveChanges)
+                    _db.SaveChanges();
+            }
+            return isNotNull;
         }
 
         public async Task RemoveAsync(int id, CancellationToken cancel = default)

@@ -20,7 +20,7 @@ namespace WpfTest.Interfaces
         Task<T> AddAsync(T item, CancellationToken cancel = default);
         void Update(T item);
         Task UpdateAsync(T item, CancellationToken cancel = default);
-        void Remove(int id);
+        bool Remove(int id);
         Task RemoveAsync(int id, CancellationToken cancel = default);
         int SaveChanges();
     }
