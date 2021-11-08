@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using WpfTest.Infrastructure.Commands;
 using WpfTest.Interfaces;
@@ -252,10 +249,8 @@ namespace WpfTest.ViewModels
         private bool CanSaveFromDataGridCommandExecuted(object p) => true;
         private void OnSaveFromDataGridCommandExecuted(object p)
         {
-            //ChangeData(DataSources);
             var count = _repository.SaveChanges();
             Status = $"Изменено {count} записей";
-            //DataSources = _table.Items.ToList();
         }
 
         //поле Id для удаления
@@ -290,10 +285,7 @@ namespace WpfTest.ViewModels
         private ICommand _uploadCommand;
         public ICommand UploadCommand => _uploadCommand
             ??= new LambdaCommand(OnUploadCommandExecuted, CanUploadCommandExecuted);
-        private bool CanUploadCommandExecuted(object p)
-        {
-            return CanUpload;
-        }
+        private bool CanUploadCommandExecuted(object p) => CanUpload;
         private void OnUploadCommandExecuted(object p)
         {
             DataToXML toXML = new DataToXML(DataSources);

@@ -18,9 +18,6 @@
     <Window.Resources>
         <cmd:CloseApplicationCommand x:Key="CloseApplicationCommand"/>
     </Window.Resources>
-    <!--<Window.DataContext>
-        <vm:MainWindowViewModel />
-    </Window.DataContext>-->
     <Window.InputBindings>
         <KeyBinding Key="Esc" Command="{StaticResource CloseApplicationCommand}"/>
     </Window.InputBindings>

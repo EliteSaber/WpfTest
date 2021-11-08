@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WpfTest.Interfaces;
-
-namespace WpfTest.Models
+﻿namespace WpfTest.Models
 {
     public class Table : Entity
     {
-        /*[Required]
-        public int Id { get; set; }*/
         public string x1a { get; set; }
         public string x1b { get; set; }
         public string x1c { get; set; }

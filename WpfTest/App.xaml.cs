@@ -1,11 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using WpfTest.Data;
 using WpfTest.Services;
@@ -33,17 +27,7 @@ namespace WpfTest
             base.OnExit(e);
             await host.StopAsync();
         }
-        /*internal static void ConfigureServices(HostBuilderContext host, IServiceCollection services) => services
-            .AddDatabase(host.Configuration.GetSection("Database"))
-            .AddServices()
-            .AddViewModels()
-            ;
 
-        public static IHostBuilder CreateHostBuilder(string[] args) => Microsoft.Extensions.Hosting.Host
-            .CreateDefaultBuilder(args)
-            .ConfigureServices(ConfigureServices);*/
-
-            
         public static IHostBuilder CreateHostBuilder(string[] args) => Microsoft.Extensions.Hosting.Host
             .CreateDefaultBuilder(args)
             .ConfigureServices(
