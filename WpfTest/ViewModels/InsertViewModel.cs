@@ -21,14 +21,14 @@ namespace WpfTest.ViewModels
             get => _status;
             set => Set(ref _status, value);
         }
-
+        
         private IEnumerable<Table> _dataSource;
         public IEnumerable<Table> DataSource
         {
             get => _dataSource;
             set => Set(ref _dataSource, value);
         }
-
+        //очистка введенных данных
         private ICommand _clearDataCommand;
         public ICommand ClearDataCommand => _clearDataCommand
             ??= new LambdaCommand(OnClearDataCommandExecuted, CanClearDataCommandExecuted);
@@ -58,6 +58,7 @@ namespace WpfTest.ViewModels
             } };
         }
 
+        //сохранение введенных данных
         private ICommand _insertDataCommand;
         public ICommand InsertDataCommand => _insertDataCommand
             ??= new LambdaCommand(OnInsertDataCommandExecuted, CanInsertDataCommandExecuted);
@@ -87,9 +88,15 @@ namespace WpfTest.ViewModels
         private void OnInsertDataCommandExecuted(object p)
         {
             SaveData save = new SaveData(_repository, DataSource.First());
-            int numsRecords = save.NumberOfAllRecords,
-                    countUpdate = save.CountUpdate,
-                    countInsert = save.CountInsert;
+            int numsRecords = _repository.Items.Count();
+
+            int countUpdate = 0,
+                countInsert = 0;
+            if (save.IsUpdate)
+                countUpdate++;
+            else
+                countInsert++;
+
             Status = $"Записей в таблице {numsRecords} | "
                 + $"Обновлено {countUpdate} | "
                 + $"Добавлено {countInsert}";

@@ -10,6 +10,7 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top" Name="SubMenu">
             <MenuItem Header="Загрузить файл" Command="{Binding OpenFileCommand}"/>
+            <MenuItem Header="Выгрузить XML" Command="{Binding UploadCommand}"/>
             <MenuItem Header="Сохранить в БД" Command="{Binding SaveFromDataGridCommand}"/>
         </Menu>
         <StatusBar DockPanel.Dock="Bottom">

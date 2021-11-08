@@ -14,6 +14,12 @@ namespace WpfTest.ViewModels
     class MainViewModel : ViewModel
     {
         private IRepository<Table> _repository;
+        private bool _canUpload = true;
+        public bool CanUpload
+        {
+            get => _canUpload;
+            set => Set(ref _canUpload, value);
+        }
 
         private string _status = "Готов!";
         public string Status
@@ -76,6 +82,7 @@ namespace WpfTest.ViewModels
                 DataSources = new List<Table>() { first, second, result };
                 Id1 = "";
                 Id2 = "";
+                CanUpload = false;
             }
         }
         private Table GetById(int id) => _repository.Get(id);
@@ -180,7 +187,10 @@ namespace WpfTest.ViewModels
                 return;
 
             if (data.Count > 0)
+            {
                 DataSources = data;
+                CanUpload = true;
+            }
         }
         private bool IsNotNull(string s) => !string.IsNullOrWhiteSpace(s);
 
@@ -202,17 +212,23 @@ namespace WpfTest.ViewModels
         }
         private void ChangeData(IEnumerable<Table> data)
         {
+            int numsRecords = 0,
+                countUpdate = 0,
+                countInsert = 0;
             foreach (Table t in data)
             {
                 SaveData save = new SaveData(_repository, t);
                 ReloadDataSources();
-                int numsRecords = save.NumberOfAllRecords,
-                    countUpdate = save.CountUpdate,
-                    countInsert = save.CountInsert;
-                Status = $"Записей в таблице {numsRecords} | "
+
+                if (save.IsUpdate)
+                    countUpdate++;
+                else
+                    countInsert++;
+            }
+            numsRecords = _repository.Items.Count();
+            Status = $"Записей в таблице {numsRecords} | "
                     + $"Обновлено {countUpdate} | "
                     + $"Добавлено {countInsert}";
-            }
         }
         private bool CanOpenFileCommandExecute(object p) => true;
 
@@ -226,6 +242,7 @@ namespace WpfTest.ViewModels
         private void ReloadDataSources()
         {
             DataSources = _repository.Items.ToList();
+            CanUpload = true;
         }
 
         //сохранение измененных данных в БД
@@ -248,6 +265,7 @@ namespace WpfTest.ViewModels
             get => _idForDelete;
             set => Set(ref _idForDelete, value);
         }
+        //команда удаления
         private ICommand _deleteByIdCommand;
         public ICommand DeleteByIdCommand => _deleteByIdCommand
             ??= new LambdaCommand(OnDeleteByIdCommandExecuted, CanDeleteByIdCommandExecuted);
@@ -267,6 +285,19 @@ namespace WpfTest.ViewModels
                     Status = $"Запись с {id} не найдена";
                 }
             }
+        }
+
+        private ICommand _uploadCommand;
+        public ICommand UploadCommand => _uploadCommand
+            ??= new LambdaCommand(OnUploadCommandExecuted, CanUploadCommandExecuted);
+        private bool CanUploadCommandExecuted(object p)
+        {
+            return CanUpload;
+        }
+        private void OnUploadCommandExecuted(object p)
+        {
+            DataToXML toXML = new DataToXML(DataSources);
+            Status = toXML.Create() ? "XML создан" : "XML не был создан";
         }
 
         public MainViewModel(IRepository<Table> repository)

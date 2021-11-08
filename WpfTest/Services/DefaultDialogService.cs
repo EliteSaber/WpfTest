@@ -23,7 +23,16 @@ namespace WpfTest
             }
             return false;
         }
-
+        public bool SaveFileDialog()
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                FilePath = saveFileDialog.FileName;
+                return true;
+            }
+            return false;
+        }
         public void ShowMessage(string message)
         {
             MessageBox.Show(message);

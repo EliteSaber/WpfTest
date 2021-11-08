@@ -12,9 +12,7 @@ namespace WpfTest
     {
         private IRepository<Table> _repository;
         private Table _data;
-        public int CountUpdate { get; private set; }
-        public int CountInsert { get; private set; }
-        public int NumberOfAllRecords { get; private set; }
+        public bool IsUpdate { get; private set; }
         public SaveData(IRepository<Table> repository, Table data)
         {
             _repository = repository;
@@ -23,8 +21,6 @@ namespace WpfTest
         }
         private void Save()
         {
-            CountUpdate = 0;
-            CountInsert = 0;
             if (_repository.Items.FirstOrDefault(x => x.Equals(_data)) != null)
                 return;
 
@@ -47,14 +43,13 @@ namespace WpfTest
                 record.x13 = _data.x13;
                 record.x14 = _data.x14;
                 _repository.Update(record);
-                CountUpdate++;
+                IsUpdate = true;
             }
             else
             {
                 _repository.Add(_data);
-                CountInsert++;
+                IsUpdate = false;
             }
-            NumberOfAllRecords = _repository.Items.Count();
         }
     }
 }
