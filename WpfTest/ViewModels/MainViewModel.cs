@@ -132,49 +132,49 @@ namespace WpfTest.ViewModels
             //все возможные комбинации поиска через четыре поля, методом перебора
             var data = new List<Table>();
             if (IsNotNull(X1a) && IsNotNull(X1b) && IsNotNull(X1c) && IsNotNull(X1d))
-                data = _repository.Items.Where(x => x.x1a.Equals(X1a) && x.x1b.Equals(X1b) && x.x1c.Equals(X1c) && x.x1d.Equals(X1d)).ToList();
+                data = _repository.Items.Where(x => x.x1a.Contains(X1a) && x.x1b.Contains(X1b) && x.x1c.Contains(X1c) && x.x1d.Contains(X1d)).ToList();
 
             if (IsNotNull(X1a) && IsNotNull(X1b) && IsNotNull(X1c) && !IsNotNull(X1d))
-                data = _repository.Items.Where(x => x.x1a.Equals(X1a) && x.x1b.Equals(X1b) && x.x1c.Equals(X1c)).ToList();
+                data = _repository.Items.Where(x => x.x1a.Contains(X1a) && x.x1b.Contains(X1b) && x.x1c.Contains(X1c)).ToList();
 
             if (IsNotNull(X1a) && IsNotNull(X1b) && !IsNotNull(X1c) && IsNotNull(X1d))
-                data = _repository.Items.Where(x => x.x1a.Equals(X1a) && x.x1b.Equals(X1b) && x.x1d.Equals(X1d)).ToList();
+                data = _repository.Items.Where(x => x.x1a.Contains(X1a) && x.x1b.Contains(X1b) && x.x1d.Contains(X1d)).ToList();
 
             if (IsNotNull(X1a) && !IsNotNull(X1b) && IsNotNull(X1c) && IsNotNull(X1d))
-                data = _repository.Items.Where(x => x.x1a.Equals(X1a) && x.x1c.Equals(X1c) && x.x1d.Equals(X1d)).ToList();
+                data = _repository.Items.Where(x => x.x1a.Contains(X1a) && x.x1c.Contains(X1c) && x.x1d.Contains(X1d)).ToList();
 
             if (!IsNotNull(X1a) && IsNotNull(X1b) && IsNotNull(X1c) && IsNotNull(X1d))
-                data = _repository.Items.Where(x => x.x1b.Equals(X1b) && x.x1c.Equals(X1c) && x.x1d.Equals(X1d)).ToList();
+                data = _repository.Items.Where(x => x.x1b.Contains(X1b) && x.x1c.Contains(X1c) && x.x1d.Contains(X1d)).ToList();
 
             if (IsNotNull(X1a) && IsNotNull(X1b) && !IsNotNull(X1c) && !IsNotNull(X1d))
-                data = _repository.Items.Where(x => x.x1a.Equals(X1a) && x.x1b.Equals(X1b)).ToList();
+                data = _repository.Items.Where(x => x.x1a.Contains(X1a) && x.x1b.Contains(X1b)).ToList();
 
             if (IsNotNull(X1a) && !IsNotNull(X1b) && IsNotNull(X1c) && !IsNotNull(X1d))
-                data = _repository.Items.Where(x => x.x1a.Equals(X1a) && x.x1c.Equals(X1c)).ToList();
+                data = _repository.Items.Where(x => x.x1a.Contains(X1a) && x.x1c.Contains(X1c)).ToList();
 
             if (!IsNotNull(X1a) && IsNotNull(X1b) && IsNotNull(X1c) && !IsNotNull(X1d))
-                data = _repository.Items.Where(x => x.x1b.Equals(X1b) && x.x1c.Equals(X1c)).ToList();
+                data = _repository.Items.Where(x => x.x1b.Contains(X1b) && x.x1c.Contains(X1c)).ToList();
 
             if (IsNotNull(X1a) && !IsNotNull(X1b) && !IsNotNull(X1c) && IsNotNull(X1d))
-                data = _repository.Items.Where(x => x.x1a.Equals(X1a) && x.x1d.Equals(X1d)).ToList();
+                data = _repository.Items.Where(x => x.x1a.Contains(X1a) && x.x1d.Contains(X1d)).ToList();
 
             if (!IsNotNull(X1a) && IsNotNull(X1b) && !IsNotNull(X1c) && IsNotNull(X1d))
-                data = _repository.Items.Where(x => x.x1b.Equals(X1b) && x.x1d.Equals(X1d)).ToList();
+                data = _repository.Items.Where(x => x.x1b.Contains(X1b) && x.x1d.Contains(X1d)).ToList();
 
             if (!IsNotNull(X1a) && !IsNotNull(X1b) && IsNotNull(X1c) && IsNotNull(X1d))
-                data = _repository.Items.Where(x => x.x1c.Equals(X1c) && x.x1d.Equals(X1d)).ToList();
+                data = _repository.Items.Where(x => x.x1c.Contains(X1c) && x.x1d.Contains(X1d)).ToList();
 
             if (IsNotNull(X1a) && !IsNotNull(X1b) && !IsNotNull(X1c) && !IsNotNull(X1d))
-                data = _repository.Items.Where(x => x.x1a.Equals(X1a)).ToList();
+                data = _repository.Items.Where(x => x.x1a.Contains(X1a)).ToList();
 
             if (!IsNotNull(X1a) && IsNotNull(X1b) && !IsNotNull(X1c) && !IsNotNull(X1d))
-                data = _repository.Items.Where(x => x.x1b.Equals(X1b)).ToList();
+                data = _repository.Items.Where(x => x.x1b.Contains(X1b)).ToList();
 
             if (!IsNotNull(X1a) && !IsNotNull(X1b) && IsNotNull(X1c) && !IsNotNull(X1d))
-                data = _repository.Items.Where(x => x.x1c.Equals(X1c)).ToList();
+                data = _repository.Items.Where(x => x.x1c.Contains(X1c)).ToList();
 
             if (!IsNotNull(X1a) && !IsNotNull(X1b) && !IsNotNull(X1c) && IsNotNull(X1d))
-                data = _repository.Items.Where(x => x.x1d.Equals(X1d)).ToList();
+                data = _repository.Items.Where(x => x.x1d.Contains(X1d)).ToList();
 
             if (!IsNotNull(X1a) && !IsNotNull(X1b) && !IsNotNull(X1c) && !IsNotNull(X1d))
                 return;
