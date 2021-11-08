@@ -4,9 +4,30 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfTest.Views"
+             xmlns:vm="clr-namespace:WpfTest.ViewModels" d:DataContext="{d:DesignInstance Type=vm:InsertViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Name="SubMenu">
+            <MenuItem Header="Сохранить" Command="{Binding InsertDataCommand}"/>
+            <MenuItem Header="Очистить" Command="{Binding ClearDataCommand}"/>
+        </Menu>
+        <Menu DockPanel.Dock="Right">
             
-    </Grid>
+        </Menu>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <TextBlock Text="{Binding Status}"/>
+            </StatusBarItem>
+        </StatusBar>
+        <Grid>
+            <DataGrid x:Name="InsertGrid"
+                      AutoGenerateColumns="True"
+                      AutoGeneratingColumn="InsertGrid_AutoGeneratingColumn"
+                      ColumnWidth="50"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      ItemsSource="{Binding DataSource}"/>
+        </Grid>
+    </DockPanel>
 </UserControl>

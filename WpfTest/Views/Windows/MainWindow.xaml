@@ -25,7 +25,7 @@
         <KeyBinding Key="Esc" Command="{StaticResource CloseApplicationCommand}"/>
     </Window.InputBindings>
     <DockPanel>
-        <Menu DockPanel.Dock="Top">
+        <Menu IsMainMenu="True" DockPanel.Dock="Top">
             <MenuItem Header="Файл">
                 <MenuItem Header="Выход" Command="{StaticResource CloseApplicationCommand}"/>
             </MenuItem>

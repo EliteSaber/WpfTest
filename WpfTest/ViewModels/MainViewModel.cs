@@ -199,80 +199,11 @@ namespace WpfTest.ViewModels
             }
             DataFromFile data = new DataFromFile(text);
             ChangeData(data.Full);
-            /*_text = "";
-            int countUpdate = 0,
-                countInsert = 0;
-            foreach (Table t in data.Full)
-            {
-                var record = _table
-                    .Items
-                    .FirstOrDefault(x => x.x1a.Equals(t.x1a) && x.x1b.Equals(t.x1b) && x.x1c.Equals(t.x1c) && x.x1d.Equals(t.x1d));
-                if (record != null)
-                {
-                    record.x2 = t.x2;
-                    record.x3 = t.x3;
-                    record.x4 = t.x4;
-                    record.x5 = t.x5;
-                    record.x6 = t.x6;
-                    record.x7 = t.x7;
-                    record.x8 = t.x8;
-                    record.x9 = t.x9;
-                    record.x10 = t.x10;
-                    record.x11 = t.x11;
-                    record.x12 = t.x12;
-                    record.x13 = t.x13;
-                    record.x14 = t.x14;
-                    _table.Update(record);
-                    countUpdate++;
-                }
-                else
-                {
-                    _table.Add(t);
-                    countInsert++;
-                }
-                ReloadDataSources();
-                var numsRecords = _table.Items.Count();
-                Text = $"Записей в таблице {numsRecords}\r\n"
-                    + $"Обновлено {countUpdate} записей\r\n"
-                    + $"Добавлено {countInsert} записей";
-
-                //Text += $"{t.x1a} {t.x1b} {t.x1c} {t.x1d} {t.x2} {t.x3} {t.x4} {t.x5} {t.x6} {t.x7} {t.x8} {t.x9} {t.x10} {t.x11} {t.x12} {t.x13} {t.x14}\r\n";
-            }*/
         }
         private void ChangeData(IEnumerable<Table> data)
         {
-            //int countUpdate = 0,
-            //    countInsert = 0;
             foreach (Table t in data)
             {
-                //if (_repository.Items.FirstOrDefault(x => x.Equals(t)) != null)
-                //    continue;
-                //var record = _repository
-                //    .Items
-                //    .FirstOrDefault(x => x.x1a.Equals(t.x1a) && x.x1b.Equals(t.x1b) && x.x1c.Equals(t.x1c) && x.x1d.Equals(t.x1d));
-                //if (record != null)
-                //{
-                //    record.x2 = t.x2;
-                //    record.x3 = t.x3;
-                //    record.x4 = t.x4;
-                //    record.x5 = t.x5;
-                //    record.x6 = t.x6;
-                //    record.x7 = t.x7;
-                //    record.x8 = t.x8;
-                //    record.x9 = t.x9;
-                //    record.x10 = t.x10;
-                //    record.x11 = t.x11;
-                //    record.x12 = t.x12;
-                //    record.x13 = t.x13;
-                //    record.x14 = t.x14;
-                //    _repository.Update(record);
-                //    countUpdate++;
-                //}
-                //else
-                //{
-                //    _repository.Add(t);
-                //    countInsert++;
-                //}
                 SaveData save = new SaveData(_repository, t);
                 ReloadDataSources();
                 int numsRecords = save.NumberOfAllRecords,

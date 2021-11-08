@@ -24,5 +24,15 @@ namespace WpfTest.Views
         {
             InitializeComponent();
         }
+
+        private void InsertGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            string headername = e.Column.Header.ToString();
+            if (headername == "Id")
+            {
+                e.Column.IsReadOnly = true;
+                e.Column.Visibility = Visibility.Hidden;
+            }
+        }
     }
 }
