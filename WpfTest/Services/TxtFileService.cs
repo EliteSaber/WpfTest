@@ -7,11 +7,11 @@ namespace WpfTest
 {
     public class TxtFileService : IFileService
     {
-        private readonly List<char> _bannedSymbols = new List<char>() { '*', '#', 'Т' };
+        private readonly List<char> _bannedSymbols = new List<char>() { '*', '#', 'Т', '?' };
         public List<string> Open(string filename)
         {
             List<string> text = new List<string>();
-            using (StreamReader sr = new StreamReader(filename, Encoding.Default))
+            using (StreamReader sr = new StreamReader(filename, Encoding.ASCII))
             {
                 string line;
                 while ((line = sr.ReadLine()) != null)
